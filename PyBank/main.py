@@ -5,6 +5,7 @@ import csv
 # Set Path For Resource File
 csv_path = os.path.join("..", "Resources", "budget_data.csv")
 
+# List Assignments
 Months = []
 Profit_Losses = []
 Changes = []
@@ -13,9 +14,10 @@ Changes = []
 with open(csv_path) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=",")
 
+    # Bypassing The Headers
     csv_header = next(csv_reader)
 
-    # Row Loop
+    # Row Loop Appending Data To Lists
     for row in csv_reader:
         Months.append(row[0])
         Profit_Losses.append(row[1])
@@ -49,13 +51,22 @@ min_change = min(Changes)
 k = Changes.index(min_change)
 min_date = Months[k + 1]
 
+# Print Analysis To Terminal
+print('Financial Analysis')
+print('------------------')
+print(f'Total Months: {length}')
+print(f'Total: ${total}')
+print(f'Average Change: ${round(avg_change, 2)}')
+print(f'Greatest Increase In Profits: {max_date} (${max_change})')
+print(f'Greatest Decrease In Profits: {min_date} (${min_change})')
+
 # Set Path For Analysis File
 output_path = os.path.join("..", "Analysis", "Analysis.txt") 
 
 # Create The TXT File
 txtwriter = open(output_path, "w")
 
-# Write To TXT File
+# Write Analysis To TXT File
 txtwriter.writelines('Financial Analysis \n')
 txtwriter.writelines('------------------ \n')
 txtwriter.writelines(f'Total Months: {length} \n')
